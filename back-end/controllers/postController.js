@@ -2,8 +2,9 @@ const Post = require('../models/Post')
 
 exports.getAllPosts = async (req, res, next) => {
     try {
-        console.log("haha", req.body)
+        
         const posts = await Post.find({}).populate('author')
+        console.log("haha", posts)
         res.status(200).json({
             status: 'success',
             results: posts.length,
@@ -21,7 +22,7 @@ exports.createOnePost = async (req, res, next) => {
         const {userId} = req.user;
         console.log("hihi", req.body)
         console.log("post=", {...req.body, author: userId})
-        const post = await Post.create({...req.body, author: userId, name: ""});
+        const post = await Post.create({...req.body, author: userId});
         
         res.status(200).json({
             status: 'success',
@@ -30,7 +31,7 @@ exports.createOnePost = async (req, res, next) => {
     } catch (error) {
         console.log("error", error);
         res.status(400).json({
-            status: 'fzzxzalse',
+            status: 'create rrrp',
         })
     }
 }

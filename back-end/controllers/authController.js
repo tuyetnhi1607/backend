@@ -7,8 +7,9 @@ exports.register = async (req, res, next) => {
         const user = await User.create(req.body);
         const token = jwt.sign({userId: user._id}, process.env.APP_SECRET);
         res.status(200).json({
+            isLogined: true,
             status: 'success',
-            data: {token, userName: user.name}
+            data: {token, userName: user.name }
         })
     } catch (error) {
         res.json(error);
@@ -24,6 +25,7 @@ exports.login = async (req, res, next) => {
             if(bcrypt.compareSync(req.body.password, user.password)){
                 const token = jwt.sign({userId: user.id}, process.env.APP_SECRET);
                 res.status(200).json({
+                    isLogined: true,
                     status: 'success',
                     data: {
                         token, userName: user.name
@@ -34,6 +36,18 @@ exports.login = async (req, res, next) => {
             }
         }
 
+    } catch (error) {
+        res.json(error);
+    }
+}
+
+exports.logout = async (req, res, next) => {
+    try {
+        res.status(200).json({
+            isLogined: false,
+            status: 'success',
+          
+        })
     } catch (error) {
         res.json(error);
     }

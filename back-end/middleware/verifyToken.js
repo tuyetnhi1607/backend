@@ -9,7 +9,6 @@ exports.verifyToken = (req, res, next) => {
         })
     }else{
         const token = Authorization.replace('Bearer ', '')
-        
         const {userId} = jwt.verify(token, process.env.APP_SECRET)
         req.user = {userId}
         console.log(req.user);
