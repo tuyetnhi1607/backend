@@ -45,7 +45,9 @@ exports.logout = async (req, res, next) => {
     try {
         res.status(200).json({
             isLogined: false,
-            status: 'success',
+            data: {
+                token: "", userName: ""
+            }
           
         })
     } catch (error) {
