@@ -10,7 +10,7 @@ const {
 
 const Router = express.Router();
 
-Router.route("/").get(getAllPosts);
+Router.route("/").get(verifyToken, getAllPosts);
 Router.route("/").post(verifyToken, createOnePost);
 Router.route("/:postId").delete(verifyToken, deleteOnePost);
 Router.route("/:postId").put(verifyToken, updateOnePost);
